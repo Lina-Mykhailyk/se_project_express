@@ -3,7 +3,7 @@ const { BAD_REQUEST, NOT_FOUND, SERVER_ERROR } = require("../utils/errors");
 
 const getItems = (req, res) => {
   Item.find({})
-    .then((items) => res.status(200).send(items))
+    .then((items) => res.send(items))
     .catch((err) => {
       console.error(err);
       return res
@@ -34,7 +34,7 @@ const deleteItem = (req, res) => {
   const { itemId } = req.params;
   Item.findByIdAndDelete(itemId)
     .orFail()
-    .then((deletedItem) => res.status(200).send(deletedItem))
+    .then((deletedItem) => res.send(deletedItem))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
@@ -58,7 +58,7 @@ const likeItem = (req, res) => {
     { new: true }
   )
     .orFail()
-    .then((item) => res.status(200).send(item))
+    .then((item) => res.send(item))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
@@ -80,7 +80,7 @@ const dislikeItem = (req, res) => {
     { new: true }
   )
     .orFail()
-    .then((item) => res.status(200).send(item))
+    .then((item) => res.send(item))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
