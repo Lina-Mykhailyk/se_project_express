@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const helmet = require("helmet");
 const mainRouter = require("./routes/index");
 const { NOT_FOUND } = require("./utils/errors");
 
@@ -15,7 +16,7 @@ mongoose
   .catch(console.error);
 
 app.use(cors());
-
+app.use(helmet());
 app.use(express.json());
 
 app.use("/", mainRouter);
