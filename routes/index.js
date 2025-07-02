@@ -3,9 +3,14 @@ const userRouter = require("./users");
 const itemRouter = require("./clothingItems");
 const { createUser, login } = require("../controllers/users");
 const auth = require("../middlewares/auth");
+const {
+  validateUserBody,
+  validateLoginBody,
+} = require("../middlewares/validation");
 
-router.post("/signin", login);
-router.post("/signup", createUser);
+router.post("/signin", validateLoginBody, login);
+router.post("/signup", validateUserBody, createUser);
+
 router.get("/items", require("../controllers/clothingItems").getItems);
 
 router.use(auth);

@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const mainRouter = require("./routes/index");
-const { NOT_FOUND } = require("./utils/errors");
+const { errors } = require("celebrate");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
+const errorHandler = require("./middlewares/error-handler");
 
 const app = express();
 const { PORT = 3001 } = process.env;
@@ -19,11 +21,15 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
+app.use(requestLogger);
+
 app.use("/", mainRouter);
 
-app.use((req, res) => {
-  res.status(NOT_FOUND).send({ message: "Requested resource not found" });
-});
+app.use(errorLogger);
+
+app.use(errors());
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`);
