@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,8 +11,6 @@ const errorHandler = require("./middlewares/error-handler");
 
 const app = express();
 const { PORT = 3001 } = process.env;
-
-require("dotenv").config();
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/wtwr_db")
