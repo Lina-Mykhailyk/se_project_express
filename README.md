@@ -21,3 +21,7 @@ A Node.js and Express.js backend for the "What to Wear" (WTWR) project — an ap
 - Delete only your own items
 - Public access to items without login
 - Robust error handling for all scenarios
+
+## Application Access
+
+URL: https://wtwear.jumpingcrab.com
