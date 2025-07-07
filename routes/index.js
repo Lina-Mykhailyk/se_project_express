@@ -7,6 +7,7 @@ const {
   validateUserBody,
   validateLoginBody,
 } = require("../middlewares/validation");
+const NotFoundError = require("../errors/NotFoundError");
 
 router.post("/signin", validateLoginBody, login);
 router.post("/signup", validateUserBody, createUser);
@@ -17,5 +18,9 @@ router.use(auth);
 
 router.use("/users", userRouter);
 router.use("/items", itemRouter);
+
+router.use("*", (req, res, next) => {
+  next(new NotFoundError("Requested resource not found"));
+});
 
 module.exports = router;
